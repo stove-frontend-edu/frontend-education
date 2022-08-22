@@ -3,3 +3,16 @@
     border: 2px solid #888;
     background-color: #eee;
 }
+
+#item-area {
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+#item-area > div {
+    width: 24px;
+    height: 24px;
+    background: blue;
+    margin: 5px;
+}

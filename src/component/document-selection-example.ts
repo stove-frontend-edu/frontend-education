@@ -1,9 +1,7 @@
 export class DocumentSelectionExample {
     private message: string;
 
-    constructor(
-        configuration = {}
-    ) {
+    constructor() {
         this.message = 'Nice to meet you seed!';
         this.init();
     }

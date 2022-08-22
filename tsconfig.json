@@ -1,37 +1,37 @@
 {
     "compilerOptions": {
-      // leave JSX as it is
-      // resolve modules as you would expect
-      "moduleResolution": "node",
-      // leave imports as they are
-      "module": "esnext",
-      // do not transpile stuff like classes, async/await, ...
-      "target": "es5",
-      "lib": [
-        "es2015", "es6", "esnext", "dom"
-      ],
-      "allowJs": true,
-      "strict": true,
-      "strictNullChecks": true,
-      "strictPropertyInitialization": false,
-      // produce a source map
-      "sourceMap": true,
-      "baseUrl": ".",
-      "outDir": "dist",
-      "paths": {
-        "components/*": ["./src/components/*"],
-        "assets/*": ["./src/assets/*"]
+        // leave JSX as it is
+        // resolve modules as you would expect
+        "moduleResolution": "node",
+        // leave imports as they are
+        "module": "esnext",
+        // do not transpile stuff like classes, async/await, ...
+        "target": "es5",
+        "lib": [
+            "es2015", "es6", "esnext", "dom"
+        ],
+        "allowJs": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": false,
+        // produce a source map
+        "sourceMap": true,
+        "baseUrl": ".",
+        "outDir": "dist",
+        "paths": {
+            "components/*": ["./src/components/*"],
+            "assets/*": ["./src/assets/*"]
+        },
+        "types": ["node"],
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "keyofStringsOnly": true
       },
-      "types": ["node"],
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,
-      "keyofStringsOnly": true
-    },
-    "include": [
-      "./src/**/*"
-    ],
-    "exclude": [
-      "dist",
-      "./node_modules/**/*"
-    ]
+      "include": [
+          "./src/**/*"
+      ],
+      "exclude": [
+          "dist",
+          "./node_modules/**/*"
+      ]
   }

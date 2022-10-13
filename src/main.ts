@@ -8,12 +8,8 @@ import {
 import {
     excuteMicroMacroTask,
     questionMicroMacroTask,
-    questionMicroMacroTaskSecond,
 } from './section-one/micro-macro-task';
-import {
-    solutionMicroMacroTask,
-    solutionMicroMacroTaskSecond,
-} from './section-one/solution';
+import { solutionMicroMacroTask } from './section-one/solution';
 import { mutationObserver } from './section-one/observer-api';
 import { execIntersection } from './section-one/intersection-api';
 

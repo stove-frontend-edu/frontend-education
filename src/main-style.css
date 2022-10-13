@@ -1,3 +1,7 @@
+.title {
+    text-align: center;
+}
+
 #result {
     text-align: center;
     border: 2px solid #888;

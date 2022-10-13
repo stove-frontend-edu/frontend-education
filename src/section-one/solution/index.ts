@@ -1,9 +1,3 @@
-import { TaskCaller } from "../tasks";
+import { TaskCaller } from '../tasks';
 
-export const solutionMicroMacroTask = () => {
-    
-};
-
-export const solutionMicroMacroTaskSecond = () => {
-    
-}
+export const solutionMicroMacroTask = () => {};

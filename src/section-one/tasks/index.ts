@@ -3,15 +3,15 @@ export class TaskCaller {
     constructor() {}
 
     public callTask() {
-        new Promise((resolve) => setTimeout(() => {
-            if (this.onUpdate) {
-                this.onUpdate();
-            }
-            resolve(true);
-        }, 2000));
+        new Promise((resolve) =>
+            setTimeout(() => {
+                if (this.onUpdate) {
+                    this.onUpdate();
+                }
+                resolve(true);
+            }, Math.round(Math.random() * 15) * 1000)
+        );
     }
 }
 
-export const loadingTask = () => {
-
-}
+export const loadingTask = () => {};

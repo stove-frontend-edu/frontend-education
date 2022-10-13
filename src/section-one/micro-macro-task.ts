@@ -1,17 +1,23 @@
-import { TaskCaller } from "./tasks";
+import { TaskCaller } from './tasks';
 
 export const excuteMicroMacroTask = () => {
-    const macroCallback = () => console.log('macro task: called macro task timeout callback.');
+    const macroCallback = () =>
+        console.log('1.macro task: called macro task timeout callback.');
 
     const microCallback = () => {
-        console.log('micro task: called micro task queueMicrotask callback first.');
-        console.log('micro task: called micro task queueMicrotask callback second.');
+        console.log(
+            '2.micro task: called micro task queueMicrotask callback first.'
+        );
+        console.log(
+            '3.micro task: called micro task queueMicrotask callback second.'
+        );
     };
 
-    const microTimeoutCallback = () => setTimeout(() => console.log('micro settimeout'), 0);
+    const microTimeoutCallback = () =>
+        setTimeout(() => console.log('4.micro settimeout'), 0);
 
-    const promiseCallback = () => console.log('called Promise callback');
-    
+    const promiseCallback = () => console.log('5.called Promise callback');
+
     queueMicrotask(microTimeoutCallback);
     setTimeout(macroCallback, 0);
     queueMicrotask(microCallback);
@@ -24,7 +30,7 @@ export const questionMicroMacroTask = () => {
     const secondTask = () => console.log('second');
     const thirdTask = () => Promise.resolve().then(() => console.log('third'));
     const fourthTask = () => setTimeout(() => console.log('fourth'), 0);
-}
+};
 
 // TODO: 콘솔에 onUpdate for First -> second -> third 순으로 출력하세요.
 export const questionMicroMacroTaskSecond = () => {
@@ -37,4 +43,4 @@ export const questionMicroMacroTaskSecond = () => {
     const thirdTask = () => console.log('third');
     secondTask();
     thirdTask();
-}
+};

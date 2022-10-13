@@ -78,8 +78,11 @@ function exec() {
         entries.forEach((entry) => {
             // threshold 0.2 교차시점
             if (entry.isIntersecting) {
+                const targetIndex = +(
+                    (entry.target as HTMLElement).dataset?.index || '0'
+                );
                 (entry.target as HTMLImageElement).src =
-                    imageData[+(entry.target as any).dataset.index].src;
+                    imageData[targetIndex].src;
                 observer.unobserve(entry.target);
             }
         });

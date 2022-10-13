@@ -15,6 +15,7 @@ import {
     solutionMicroMacroTaskSecond,
 } from './section-one/solution';
 import { mutationObserver } from './section-one/observer-api';
+import { execIntersection } from './section-one/intersection-api';
 
 const eventExample = () => {
     const test1 = ({ detail: data }: CustomEvent) => {

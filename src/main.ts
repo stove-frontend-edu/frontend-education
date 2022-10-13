@@ -1,6 +1,6 @@
 import './main-style.css';
 
-import { EventManager } from './section-one/event-disparch';
+import { EventManager } from './section-one/event-dispatch';
 import { inlineCashingTest, inlineCashingTestByDeOptimize } from './section-one/inline-cashing';
 import { excuteMicroMacroTask, questionMicroMacroTask, questionMicroMacroTaskSecond } from './section-one/micro-macro-task';
 import { solutionMicroMacroTask, solutionMicroMacroTaskSecond } from './section-one/solution';

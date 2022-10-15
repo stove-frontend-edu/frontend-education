@@ -33,5 +33,3 @@ const inlineTest = () => {
     inlineCashingTest();
     inlineCashingTestByDeOptimize();
 };
-
-execClosure();

@@ -12,4 +12,4 @@ export const debounce = (callback: Function, delayTime = 0) => {
             clearTimeout(timeout);
         }, delayTime);
     }
-}
+};

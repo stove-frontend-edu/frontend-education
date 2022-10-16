@@ -25,5 +25,5 @@ export const execClosure = () => {
     const [names, setName] = useState<string>('kenneth');
     firstlabel.innerText = names();
     setName('my name is Kenneth');
-    secondlabel.innerText = names(); 
+    secondlabel.innerText = names();
 }

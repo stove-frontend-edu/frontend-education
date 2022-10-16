@@ -74,7 +74,23 @@ function exec() {
         rootMargin: '0px 0px 0px 0px',
         threshold,
     };
-    // TODO
+    const imageIo = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            // threshold 0.2 교차시점
+            if (entry.isIntersecting) {
+                const targetIndex = +(
+                    (entry.target as HTMLElement).dataset?.index || '0'
+                );
+                (entry.target as HTMLImageElement).src =
+                    imageData[targetIndex].src;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOption);
+    const lazyImgs = document.querySelectorAll('.lazy-image');
+    lazyImgs.forEach((el) => {
+        imageIo.observe(el);
+    });
 }
 
 export const execIntersection = () => {

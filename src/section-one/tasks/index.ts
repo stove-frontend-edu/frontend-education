@@ -9,9 +9,7 @@ export class TaskCaller {
                     this.onUpdate();
                 }
                 resolve(true);
-            }, Math.round(Math.random() * 15) * 1000)
+            }, Math.round(Math.random() * 18) * 1000)
         );
     }
 }
-
-export const loadingTask = () => {};

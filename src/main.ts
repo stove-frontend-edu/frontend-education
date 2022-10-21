@@ -13,6 +13,7 @@ import { solutionMicroMacroTask } from './section-one/solution';
 import { mutationObserver } from './section-one/observer-api';
 import { execIntersection } from './section-one/intersection-api';
 import { execClosure } from './section-two/state';
+import { drawTemplateByDebounce } from './section-two/debounce';
 
 const eventExample = () => {
     const test1 = ({ detail: data }: CustomEvent) => {

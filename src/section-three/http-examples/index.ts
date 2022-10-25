@@ -125,3 +125,21 @@ export const zipExample = () => {
         console.log('zipExample.result: ', response);
     });
 };
+
+type UserData = { [key: string]: User };
+
+export const zipExampleByMergeData = () => {
+    const http: HttpClient = new HttpClient();
+    const https = [
+        http.get(`${testUrl}/1`),
+        http.get(`${testUrl}/2`),
+        http.get(`${testUrl}/3`),
+        http.get(`${testUrl}/4`),
+        http.get(`${testUrl}/5`),
+    ];
+    // TODO: 하나의 data type으로 merge 하세요.
+    // 조건: key: value 형태의 data type인 UserData 안에 http의 결과 값을 저장하세요.
+    zip(...https).subscribe((response: any) => {
+        console.log('zipExample.result: ', response);
+    });
+};

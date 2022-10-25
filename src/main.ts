@@ -18,6 +18,14 @@ import {
     execDoubleClick,
     executeOperator,
 } from './section-three';
+import {
+    concatMapExample,
+    mergeMapExample,
+    mergeMapToArrayExample,
+    mergeAllExample,
+    zipExample,
+    zipExampleByMergeData,
+} from './section-three/http-examples';
 
 const eventExample = () => {
     const test1 = ({ detail: data }: CustomEvent) => {

@@ -4,7 +4,7 @@ export function useState<T = any>(value: T): [Function, Function] {
     // TODO: stateValue를 참조하고 변경할 수 있는 함수를 구현해보세요.
 
     // 외부에서 접근 할 수 있도록 함수들을 내보낸다.
-    return [() => '', () => void];
+    return [() => '', () => ''];
 }
 
 export const execClosure = () => {

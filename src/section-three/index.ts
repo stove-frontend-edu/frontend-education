@@ -13,7 +13,12 @@ export const execAutoComplete = () => {
     textInput.setAttribute('id', 'txtInput');
     textInput.style.cssText = `width: 300px`;
     container?.appendChild(textInput);
-    // TODO: fromEvent를 사용하여 text input 의 keyup 이벤트 처리 후
-    // debounceTime, operator를 사용하여 자동완성 기능을 구현하세요.
+    // TODO: fromEvent를 사용하여 text input 의 keyup 이벤트 처리 후 operator를 사용하여 자동완성 기능을 구현하세요.
+    // 조건 :
+    // 1. debounceTime 을 적용하여 마지막 이벤트만 처리하도록 합니다.
+    // 2. 공백은 제거합니다.
+    // 3. 글자가 한글자 이상이여야 합니다.
+    // 4. 같은 단어는 처리하지 않습니다.
     // fromEvent 참고: https://rxjs.dev/api/index/function/fromEvent
+    // operator 참고: https://www.learnrxjs.io/learn-rxjs/operators
 };

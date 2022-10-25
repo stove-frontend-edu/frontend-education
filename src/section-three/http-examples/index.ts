@@ -125,3 +125,29 @@ export const zipExample = () => {
         console.log('zipExample.result: ', response);
     });
 };
+
+type UserData = { [key: string]: User };
+
+export const zipExampleByMergeData = () => {
+    const http: HttpClient = new HttpClient();
+    const https = [
+        http.get(`${testUrl}/1`),
+        http.get(`${testUrl}/2`),
+        http.get(`${testUrl}/3`),
+        http.get(`${testUrl}/4`),
+        http.get(`${testUrl}/5`),
+    ];
+    zip(...https)
+        .pipe(
+            map((response: CustomHttpResponse<User>[]) => {
+                const result: UserData = {};
+                for (let i = 0; i < response.length; i++) {
+                    result[response[i].data.id] = response[i].data;
+                }
+                return result;
+            })
+        )
+        .subscribe((response: UserData) => {
+            console.log('zipExample.result: ', response);
+        });
+};

@@ -16,9 +16,17 @@ import { execClosure } from './section-two/state';
 import { drawTemplateByDebounce } from './section-two/debounce';
 import {
     execAutoComplete,
-    executeOperator,
     execDoubleClick,
+    executeOperator,
 } from './section-three';
+import {
+    concatMapExample,
+    mergeMapExample,
+    mergeMapToArrayExample,
+    mergeAllExample,
+    zipExample,
+    zipExampleByMergeData,
+} from './section-three/http-examples';
 
 const eventExample = () => {
     const test1 = ({ detail: data }: CustomEvent) => {
@@ -39,5 +47,3 @@ const inlineTest = () => {
     inlineCashingTest();
     inlineCashingTestByDeOptimize();
 };
-
-execDoubleClick();

@@ -1,8 +1,6 @@
 import {
     fromEvent,
-    Subject,
     of,
-    fromEventPattern,
     ObservableInput,
     OperatorFunction,
     pipe,
@@ -17,8 +15,6 @@ import {
     delay,
 } from 'rxjs/operators';
 
-type ProcessProducer<T, D> = (q: D) => ObservableInput<T>;
-
 export const execAutoComplete = () => {
     const container = document.querySelector('#result');
     const textInput = document.createElement('INPUT');
@@ -26,9 +22,20 @@ export const execAutoComplete = () => {
     textInput.setAttribute('id', 'txtInput');
     textInput.style.cssText = `width: 300px`;
     container?.appendChild(textInput);
-    // TODO: fromEvent를 사용하여 text input 의 keyup 이벤트 처리 후
-    // debounceTime, operator를 사용하여 자동완성 기능을 구현하세요.
+    fromEvent(textInput, 'keyup')
+        .pipe(
+            map((e: any) => e.target.value),
+            debounceTime(500)
+            // 단어의 수를 체크하여 처리 하고 싶은 경우 filter 를 사용하여 length 체크
+            // 같은 단어는 처리 안할 시 distinctUntilChanged 사용
+            // 비동기 통신 시 switchMap 사용
+        )
+        .subscribe((word: string) => {
+            console.log('word : ', word);
+        });
 };
+
+type ProcessProducer<T, D> = (q: D) => ObservableInput<T>;
 
 export const customOperatorByMergeProducer = <S, D>(
     processProducer: ProcessProducer<S, D>
@@ -45,7 +52,7 @@ export const execCustomProducer = <T = any>(
 ): Observable<{ result: T }> => {
     const source$ = of(value);
     const customProducer = (data: T) =>
-        of(`merge data ${data}` as any).pipe(delay(2000));
+        of(`auto complete! ${data}` as any).pipe(delay(2000));
 
     return source$.pipe(
         customOperatorByMergeProducer(customProducer),

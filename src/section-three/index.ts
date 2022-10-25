@@ -15,6 +15,7 @@ import {
     distinctUntilChanged,
     switchMap,
     delay,
+    buffer,
 } from 'rxjs/operators';
 
 export const execAutoComplete = () => {
@@ -32,6 +33,23 @@ export const execAutoComplete = () => {
     // 4. 같은 단어는 처리하지 않습니다.
     // fromEvent 참고: https://rxjs.dev/api/index/function/fromEvent
     // operator 참고: https://www.learnrxjs.io/learn-rxjs/operators
+};
+
+export const execDoubleClick = () => {
+    const container = document.querySelector('#result');
+    const divBtn = document.createElement('DIV');
+    divBtn.setAttribute('id', 'dbBtn');
+    divBtn.style.cssText = `cursor: pointer; width: 100px; border: 1px solid #000; background-color: aquamarine; display: inline-block;`;
+    divBtn.textContent = 'Click';
+    container?.appendChild(divBtn);
+    const click$ = fromEvent(divBtn, 'click');
+    // TODO: 더블클릭 기능을 구현하세요.
+    // 조건:
+    // 1.click count를 전달하는 map을 적용합니다.
+    // 2.count는 2번만 되게끔 적용합니다.
+    click$.pipe(buffer(click$.pipe(debounceTime(250)))).subscribe(() => {
+        console.log('double click!');
+    });
 };
 
 type ProcessProducer<T, D> = (q: D) => ObservableInput<T>;

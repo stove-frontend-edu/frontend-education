@@ -36,4 +36,4 @@ const inlineTest = () => {
     inlineCashingTestByDeOptimize();
 };
 
-executeOperator();
+execAutoComplete();

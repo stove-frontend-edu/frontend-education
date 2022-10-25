@@ -17,7 +17,7 @@ import {
     delay,
 } from 'rxjs/operators';
 
-type ProcessProducer<T> = (q: any) => ObservableInput<T>;
+type ProcessProducer<T, D> = (q: D) => ObservableInput<T>;
 
 export const execAutoComplete = () => {
     const container = document.querySelector('#result');
@@ -30,9 +30,9 @@ export const execAutoComplete = () => {
     // debounceTime, operator를 사용하여 자동완성 기능을 구현하세요.
 };
 
-export const customOperatorByMergeProducer = <S>(
-    processProducer: ProcessProducer<S>
-): OperatorFunction<any, S> => {
+export const customOperatorByMergeProducer = <S, D>(
+    processProducer: ProcessProducer<S, D>
+): OperatorFunction<D, S> => {
     return pipe(
         debounceTime(500),
         distinctUntilChanged(),

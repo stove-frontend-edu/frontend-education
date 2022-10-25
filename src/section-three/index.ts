@@ -1,10 +1,23 @@
-import { fromEvent, Subject, of, fromEventPattern } from 'rxjs';
+import {
+    fromEvent,
+    Subject,
+    of,
+    fromEventPattern,
+    ObservableInput,
+    OperatorFunction,
+    pipe,
+    Observable,
+} from 'rxjs';
 import {
     map,
     filter,
     debounceTime,
     distinctUntilChanged,
+    switchMap,
+    delay,
 } from 'rxjs/operators';
+
+type ProcessProducer<T> = (q: any) => ObservableInput<T>;
 
 export const execAutoComplete = () => {
     const container = document.querySelector('#result');
@@ -13,15 +26,39 @@ export const execAutoComplete = () => {
     textInput.setAttribute('id', 'txtInput');
     textInput.style.cssText = `width: 300px`;
     container?.appendChild(textInput);
-    fromEvent(textInput, 'keyup')
-        .pipe(
-            map((e: any) => e.target.value),
-            debounceTime(500)
-            // 단어의 수를 체크하여 처리 하고 싶은 경우 filter 를 사용하여 length 체크
-            // 같은 단어는 처리 안할 시 distinctUntilChanged 사용
-            // 비동기 통신 시 switchMap 사용
-        )
-        .subscribe((word: string) => {
-            console.log('word : ', word);
-        });
+    // TODO: fromEvent를 사용하여 text input 의 keyup 이벤트 처리 후
+    // debounceTime, operator를 사용하여 자동완성 기능을 구현하세요.
+};
+
+export const customOperatorByMergeProducer = <S>(
+    processProducer: ProcessProducer<S>
+): OperatorFunction<any, S> => {
+    return pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(processProducer)
+    );
+};
+
+export const execCustomProducer = <T = any>(
+    value: T
+): Observable<{ result: T }> => {
+    const source$ = of(value);
+    const customProducer = (data: T) =>
+        of(`merge data ${data}` as any).pipe(delay(2000));
+
+    return source$.pipe(
+        customOperatorByMergeProducer(customProducer),
+        map((result: T) => {
+            return {
+                result,
+            };
+        })
+    );
+};
+
+export const executeOperator = () => {
+    execCustomProducer<string>('Observable').subscribe((result: any) => {
+        console.log('result : ', result);
+    });
 };

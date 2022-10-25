@@ -35,3 +35,5 @@ const inlineTest = () => {
     inlineCashingTest();
     inlineCashingTestByDeOptimize();
 };
+
+executeOperator();

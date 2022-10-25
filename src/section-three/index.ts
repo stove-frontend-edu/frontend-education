@@ -58,7 +58,7 @@ export const execCustomProducer = <T = any>(
 };
 
 export const executeOperator = () => {
-    execCustomProducer<string>('Observable').subscribe((result: any) => {
+    execCustomProducer<string>('Observable').subscribe(({ result }) => {
         console.log('result : ', result);
     });
 };

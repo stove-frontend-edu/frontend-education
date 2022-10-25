@@ -1,4 +1,4 @@
-import { from } from 'rxjs';
+import { from, zip } from 'rxjs';
 import { concatMap, map, mergeAll, mergeMap, toArray } from 'rxjs/operators';
 import { CustomHttpResponse, HttpClient } from '../http/http-client';
 import { userModelMapper } from '../mapper/user-mapper';
@@ -10,37 +10,31 @@ const errorUrl = 'https://jsonplaceholder.typicode.com/users111';
 
 type UsersList = { users: User[]; user?: UserModel };
 
-// 순차처리 해야할 경우
+// 순차처리하면서 머지 해야할 경우
 export const concatMapExample = () => {
-    const users: Array<User> = [];
     const http: HttpClient = new HttpClient();
     http.get(testUrl)
         .pipe(
-            // 추가 로직을 수행하고 싶을 경우
             map((response: CustomHttpResponse<User[]>) => {
                 const concatMapData: UsersList = { users: [] };
                 const dataSize = response.data.length;
                 for (let i = 0; i < dataSize; i++) {
-                    users.push(response.data[i]);
+                    concatMapData.users.push(response.data[i]);
                 }
-                concatMapData.users = users;
                 return concatMapData;
             }),
             concatMap((response: UsersList) => {
-                return http.get(`${testUrl}/${response.users[2].id}`);
-            }),
-            map((response: CustomHttpResponse<User>) => {
-                return userModelMapper(response.data);
+                return http.get(`${testUrl}/${response.users[2].id}`).pipe(
+                    map((result: CustomHttpResponse<User>) => {
+                        response.user = userModelMapper(result.data);
+                        return response;
+                    })
+                );
             })
-            // catchError((error) => { // 추가 error 처리 해야할 경우.
-            //     throw 'server error';
-            // })
-            // 순서 있게 전부 받아야 할 경우
-            // toArray()
         )
         .subscribe(
-            (response: UserModel) => {
-                console.log('concatMapExample.response : ', response, users);
+            (response: UsersList) => {
+                console.log('concatMapExample.response : ', response);
             },
             (error) => {
                 console.log(error);
@@ -115,4 +109,19 @@ export const mergeAllExample = () => {
         .subscribe((response: any) => {
             console.log('mergeAllExample.result : ', response);
         });
+};
+
+// 병렬처리를 한번에 가져와야할 경우 세번째.
+export const zipExample = () => {
+    const http: HttpClient = new HttpClient();
+    const https = [
+        http.get(`${testUrl}/1`),
+        http.get(`${testUrl}/2`),
+        http.get(`${testUrl}/3`),
+        http.get(`${testUrl}/4`),
+        http.get(`${testUrl}/5`),
+    ];
+    zip(...https).subscribe((response: CustomHttpResponse<User>[]) => {
+        console.log('zipExample.result: ', response);
+    });
 };

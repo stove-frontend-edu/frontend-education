@@ -13,6 +13,7 @@ import {
     distinctUntilChanged,
     switchMap,
     delay,
+    buffer,
 } from 'rxjs/operators';
 
 export const execAutoComplete = () => {
@@ -34,6 +35,25 @@ export const execAutoComplete = () => {
         )
         .subscribe((word: string) => {
             console.log('word : ', word);
+        });
+};
+
+export const execDoubleClick = () => {
+    const container = document.querySelector('#result');
+    const divBtn = document.createElement('DIV');
+    divBtn.setAttribute('id', 'dbBtn');
+    divBtn.style.cssText = `cursor: pointer; width: 100px; border: 1px solid #000; background-color: aquamarine; display: inline-block;`;
+    divBtn.textContent = 'Click';
+    container?.appendChild(divBtn);
+    const click$ = fromEvent(divBtn, 'click');
+    click$
+        .pipe(
+            buffer(click$.pipe(debounceTime(250))),
+            map((clicks) => clicks.length),
+            filter((clicksLength) => clicksLength === 2)
+        )
+        .subscribe(() => {
+            console.log('double click!');
         });
 };
 

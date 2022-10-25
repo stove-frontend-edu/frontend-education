@@ -14,7 +14,11 @@ import { mutationObserver } from './section-one/observer-api';
 import { execIntersection } from './section-one/intersection-api';
 import { execClosure } from './section-two/state';
 import { drawTemplateByDebounce } from './section-two/debounce';
-import { execAutoComplete, executeOperator } from './section-three';
+import {
+    execAutoComplete,
+    executeOperator,
+    execDoubleClick,
+} from './section-three';
 
 const eventExample = () => {
     const test1 = ({ detail: data }: CustomEvent) => {
@@ -35,3 +39,5 @@ const inlineTest = () => {
     inlineCashingTest();
     inlineCashingTestByDeOptimize();
 };
+
+execDoubleClick();

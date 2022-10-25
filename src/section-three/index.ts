@@ -1,9 +1,20 @@
-import { fromEvent, Subject, of, fromEventPattern } from 'rxjs';
+import {
+    fromEvent,
+    Subject,
+    of,
+    fromEventPattern,
+    ObservableInput,
+    OperatorFunction,
+    pipe,
+    Observable,
+} from 'rxjs';
 import {
     map,
     filter,
     debounceTime,
     distinctUntilChanged,
+    switchMap,
+    delay,
 } from 'rxjs/operators';
 
 export const execAutoComplete = () => {
@@ -21,4 +32,39 @@ export const execAutoComplete = () => {
     // 4. 같은 단어는 처리하지 않습니다.
     // fromEvent 참고: https://rxjs.dev/api/index/function/fromEvent
     // operator 참고: https://www.learnrxjs.io/learn-rxjs/operators
+};
+
+type ProcessProducer<T, D> = (q: D) => ObservableInput<T>;
+
+export const customOperatorByMergeProducer = <S, D>(
+    processProducer: ProcessProducer<S, D>
+): OperatorFunction<D, S> => {
+    return pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(processProducer)
+    );
+};
+
+export const execCustomProducer = <T = any>(
+    value: T
+): Observable<{ result: T }> => {
+    const source$ = of(value);
+    const customProducer = (data: T) =>
+        of(`auto complete! ${data}` as any).pipe(delay(2000));
+
+    return source$.pipe(
+        customOperatorByMergeProducer(customProducer),
+        map((result: T) => {
+            return {
+                result,
+            };
+        })
+    );
+};
+
+export const executeOperator = () => {
+    execCustomProducer<string>('Observable').subscribe(({ result }) => {
+        console.log('result : ', result);
+    });
 };

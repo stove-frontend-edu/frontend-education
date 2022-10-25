@@ -17,6 +17,7 @@ export const execAutoComplete = () => {
         .pipe(
             map((e: any) => e.target.value),
             debounceTime(500)
+            // 단어의 수를 체크하여 처리 하고 싶은 경우 filter 를 사용하여 length 체크
             // 같은 단어는 처리 안할 시 distinctUntilChanged 사용
             // 비동기 통신 시 switchMap 사용
         )

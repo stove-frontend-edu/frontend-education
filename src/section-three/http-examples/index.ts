@@ -1,5 +1,12 @@
 import { from, zip } from 'rxjs';
-import { concatMap, map, mergeAll, mergeMap, toArray } from 'rxjs/operators';
+import {
+    concatMap,
+    map,
+    mergeAll,
+    mergeMap,
+    tap,
+    toArray,
+} from 'rxjs/operators';
 import { CustomHttpResponse, HttpClient } from '../http/http-client';
 import { userModelMapper } from '../mapper/user-mapper';
 import { User, UserModel } from '../model/user-model';

@@ -151,3 +151,33 @@ export const zipExampleByMergeData = () => {
             console.log('zipExample.result: ', response);
         });
 };
+
+export const zipExampleByMergeData2 = () => {
+    const http: HttpClient = new HttpClient();
+    const result: UserData = {};
+    http.get(`${testUrl}/1`).pipe(
+        tap(
+            (response: CustomHttpResponse<User>) =>
+                (result[response.data.id] = response.data)
+        ),
+        concatMap(() => http.get(`${testUrl}/2`)),
+        tap(
+            (response: CustomHttpResponse<User>) =>
+                (result[response.data.id] = response.data)
+        ),
+        concatMap(() => http.get(`${testUrl}/3`)),
+        tap(
+            (response: CustomHttpResponse<User>) =>
+                (result[response.data.id] = response.data)
+        ),
+        concatMap(() => http.get(`${testUrl}/4`)),
+        tap(
+            (response: CustomHttpResponse<User>) =>
+                (result[response.data.id] = response.data)
+        ),
+        concatMap(() => http.get(`${testUrl}/5`)),
+    ).subscribe((response: CustomHttpResponse<User>) => {
+        result[response.data.id] = response.data;
+        console.log('result : ', result);
+    });
+};
